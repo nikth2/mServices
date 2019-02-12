@@ -1,0 +1,37 @@
+version: '3'   
+services:
+  mysql:
+    image: "mysql:latest"
+    container_name: mysqldb
+    ports:
+     - "3306:3306"
+    volumes:
+       - ./db-data:/var/lib/mysql
+    environment:
+       - MYSQL_ROOT_PASSWORD=test
+       - MYSQL_DATABASE=strava
+    networks:
+       mynet:
+        aliases:
+         - dbserver
+
+  springboot:
+      image: "dockerservice/mservices"
+      ports:
+         - "8080:8080"
+      networks:
+        - mynet
+      depends_on:
+        - mysql
+      command: sh -c './wait-for mysql:3306 -- npm start'
+      deploy:
+        restart_policy:
+          condition: on-failure
+          delay: 15s
+          max_attempts: 3
+          window: 120s
+volumes:
+    db-data:
+networks:
+    mynet:
+    
