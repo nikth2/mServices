@@ -17,3 +17,7 @@ mvn clean package && java -jar target/demo-0.0.1-SNAPSHOT.jar
 
 #connect to docker mysql from docker-compose
 docker-compose exec mysql sh -c 'exec mysql -uroot -ptest'
+
+
+#build springboot docker image
+./mvnw install dockerfile:build
