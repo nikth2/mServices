@@ -19,17 +19,13 @@ services:
       image: "dockerservice/mservices"
       ports:
          - "8080:8080"
+         - "8000:8000"
       networks:
         - mynet
       depends_on:
         - mysql
-      command: sh -c './wait-for mysql:3306 -- npm start'
-      deploy:
-        restart_policy:
-          condition: on-failure
-          delay: 15s
-          max_attempts: 3
-          window: 120s
+#      command: -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n
+#      command: sh -c './wait-for mysql:3306 -- npm start'
 volumes:
     db-data:
 networks:
