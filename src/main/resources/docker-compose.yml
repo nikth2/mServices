@@ -24,8 +24,28 @@ services:
         - mynet
       depends_on:
         - mysql
-#      command: -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n
-#      command: sh -c './wait-for mysql:3306 -- npm start'
+
+
+  zookeeper:
+     image: wurstmeister/zookeeper
+     ports:
+       - "2181:2181"
+     networks:
+        - mynet
+
+  kafka:
+    build: kafka-docker
+    ports:
+     - "9092:9092"    
+    environment:
+       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+       KAFKA_CREATE_TOPICS: "test:1:1"
+       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    networks:
+        - mynet
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
 volumes:
     db-data:
 networks:
