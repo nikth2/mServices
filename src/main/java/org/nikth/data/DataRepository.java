@@ -15,4 +15,14 @@ public class DataRepository
 	{
 		return em.find(User.class, id);
 	}
+	
+	public void saveActivity(Activity activity)
+	{
+		em.persist(activity);
+	}
+	
+	public void saveSegment(Segment s)
+	{
+		em.persist(s);
+	}
 }
