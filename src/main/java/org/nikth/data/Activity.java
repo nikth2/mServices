@@ -14,7 +14,11 @@ import javax.persistence.OneToMany;
 public class Activity 
 {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@Column
+	private long activityId;
 	
 	@Column
 	private String name;
@@ -52,12 +56,18 @@ public class Activity
 		this.segments = segments;
 	}
 
-	@Override
-	public String toString() {
-		return "Activity [id=" + id + ", name=" + name + ", segments=" + segments + "]";
+	public long getActivityId() {
+		return activityId;
 	}
 
+	public void setActivityId(long activityId) {
+		this.activityId = activityId;
+	}
 
+	@Override
+	public String toString() {
+		return "Activity [id=" + id + ", activityId=" + activityId + ", name=" + name + ", segments=" + segments + "]";
+	}
 	
 
 }
