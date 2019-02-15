@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 
 import org.nikth.callback.ActivityCallback;
 import org.nikth.data.Activity;
+import org.nikth.data.DBAdapter;
 import org.nikth.data.DataRepository;
 import org.nikth.data.Segment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class HelloRest
 {
 	@Autowired
 	DataRepository dr;
+	
+	@Autowired
+	DBAdapter db;
 	
 	@Value("${strava.activity.id}")
 	private String activityIdFromYml;
@@ -218,6 +222,12 @@ public class HelloRest
 		
 		
 		return System.currentTimeMillis() - start;
+	}
+	
+	@RequestMapping(path="/testDB")
+	public void testDB()
+	{
+		db.getAllSegments();
 	}
 	
 	@Async
