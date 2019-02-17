@@ -20,6 +20,7 @@ import org.nikth.data.Activity;
 import org.nikth.data.DBAdapter;
 import org.nikth.data.DataRepository;
 import org.nikth.data.Segment;
+import org.nikth.properties.SQLProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -53,6 +54,9 @@ public class HelloRest
 	
 	@Autowired
 	DBAdapter db;
+	
+	@Autowired
+	SQLProperties properties;
 	
 	@Value("${strava.activity.id}")
 	private String activityIdFromYml;
@@ -227,8 +231,19 @@ public class HelloRest
 	@RequestMapping(path="/testDB")
 	public void testDB()
 	{
-		db.getAllSegments();
+		//db.getAllSegments();
+		db.getSegmentsForActivityWithProcedure(1943);
 	}
+	
+	@RequestMapping(path="/properties")
+	public String testProperties()
+	{
+		System.out.println("MServicesApplication.main:"+properties.getTest());
+		return properties.getSelect().getGetSegmentsByActivity();
+	}
+	
+	
+	
 	
 	@Async
 	private CompletableFuture<ArrayList<MySegment>> getSegmentsAsync(ApiClient client,long activityId) throws ApiException

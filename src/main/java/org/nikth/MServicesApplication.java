@@ -9,17 +9,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+
 @EnableAsync
 @SpringBootApplication
-public class MServicesApplication {
-
+public class MServicesApplication 
+{
+	
 	public static void main(String[] args) {
 		SpringApplication.run(MServicesApplication.class, args);
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("nikos");
 		list.add("kostas");
 		list.forEach(str->System.out.println(str));
+		
 	}
+	
 	
 	@Bean
     public Executor taskExecutor() {

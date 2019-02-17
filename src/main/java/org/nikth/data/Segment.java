@@ -1,5 +1,7 @@
 package org.nikth.data;
 
+import java.util.Optional;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -86,7 +88,7 @@ public class Segment
 
 	@Override
 	public String toString() {
-		return "Segment [id=" + id + ", activity=" + activity.getName() + ", elevation=" + elevation + ", time=" + time
+		return "Segment [id=" + id + ", activity=" + Optional.ofNullable(activity).map(Activity::getName) + ", elevation=" + elevation + ", time=" + time
 				+ ", distance=" + distance + "]";
 	}
 

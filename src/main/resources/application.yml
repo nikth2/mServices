@@ -1,8 +1,9 @@
+sql:
+  select:
+    getSegmentsByActivity: CALL get_segments_by_activity(?);
+  test: this is a test
 strava:
-        activity:
-                  id: 2090662526
-        access:
-                token: 4764f9b5a7f0bb3e707f197b57656bb4dbf24c22
-                  
-                  
----
+  activity:
+    id: 2090662526
+  access:
+    token: 4764f9b5a7f0bb3e707f197b57656bb4dbf24c22
