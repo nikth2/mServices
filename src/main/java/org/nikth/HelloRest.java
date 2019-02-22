@@ -23,10 +23,12 @@ import org.nikth.data.Segment;
 import org.nikth.properties.SQLProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -58,6 +60,9 @@ public class HelloRest
 	@Autowired
 	SQLProperties properties;
 	
+	@Autowired
+    private RedisTemplate<String, String> redis;
+	
 	@Value("${strava.activity.id}")
 	private String activityIdFromYml;
 	
@@ -79,6 +84,19 @@ public class HelloRest
     public String getActivityById(@PathVariable("id")int id) 
 	{
         return "activity id:"+id +" name:"+dr.getActivityById(id).getName();
+    }
+	
+	@RequestMapping("/redis/put")
+    public String testRedisSet(@RequestParam("name")String name) 
+	{
+        redis.opsForValue().set("name", name);
+        return "added "+name;
+    }
+	
+	@RequestMapping("/redis/get/{name}")
+    public String testRedisGet(@PathVariable("name")String name) 
+	{
+        return redis.opsForValue().get(name);
     }
 	
 	@RequestMapping(path="/detailed_activity/{id}",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)

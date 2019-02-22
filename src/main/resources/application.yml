@@ -7,3 +7,5 @@ strava:
     id: 2090662526
   access:
     token: 4764f9b5a7f0bb3e707f197b57656bb4dbf24c22
+redis_ip: redis_server
+redis_port: 6379

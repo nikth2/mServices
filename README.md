@@ -21,3 +21,13 @@ docker-compose exec mysql sh -c 'exec mysql -uroot -ptest'
 
 #build springboot docker image
 ./mvnw install dockerfile:build
+
+#list docker networks
+docker network ls
+
+#connect to redis with redis-cli
+docker run -it --link redis_cntr --network docker_network_mynet redis:latest redis-cli -h localhost -p 6379
+
+#connect to redis with bash and start it
+docker run -it --link redis_cntr --network docker_network_mynet redis:latest /bin/bash
+redis-server
