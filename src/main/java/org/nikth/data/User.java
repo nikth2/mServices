@@ -10,22 +10,22 @@ import javax.persistence.NamedQuery;
 public class User 
 {
 	@Id
-	private int id;
+	private long id;
 	
 	@Column
 	private String name;
 	
-	
+	private String upperName;
 	
 	public User()
 	{
 		
 	}
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -34,6 +34,17 @@ public class User
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	
+	public String getUpperName() {
+		return upperName;
+	}
+
+	public void setUpperName(String upperName) {
+		this.upperName = upperName;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + "]";

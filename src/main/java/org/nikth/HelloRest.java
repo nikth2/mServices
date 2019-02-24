@@ -20,7 +20,9 @@ import org.nikth.data.Activity;
 import org.nikth.data.DBAdapter;
 import org.nikth.data.DataRepository;
 import org.nikth.data.Segment;
+import org.nikth.data.User;
 import org.nikth.properties.SQLProperties;
+import org.nikth.redis.RedisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -63,6 +65,9 @@ public class HelloRest
 	@Autowired
     private RedisTemplate<String, String> redis;
 	
+	@Autowired
+	RedisRepository redisRepo;
+	
 	@Value("${strava.activity.id}")
 	private String activityIdFromYml;
 	
@@ -89,14 +94,22 @@ public class HelloRest
 	@RequestMapping("/redis/put")
     public String testRedisSet(@RequestParam("name")String name) 
 	{
-        redis.opsForValue().set("name", name);
+        //redis.opsForValue().set("name", name);
+        User user = new User();
+        user.setName(name);
+        user.setId(System.currentTimeMillis());
+        user.setUpperName(name.toUpperCase());
+        redisRepo.addUser(user);
+        
         return "added "+name;
     }
 	
 	@RequestMapping("/redis/get/{name}")
     public String testRedisGet(@PathVariable("name")String name) 
 	{
-        return redis.opsForValue().get(name);
+        //return redis.opsForValue().get(name);
+		Gson gson = new GsonBuilder().create();
+	    return  gson.toJson(redisRepo.getUser(name));
     }
 	
 	@RequestMapping(path="/detailed_activity/{id}",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)

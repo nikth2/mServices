@@ -20,9 +20,24 @@
 	</bean>
 
 <!-- redis template definition -->
-<bean id="redisTemplate"
-    class="org.springframework.data.redis.core.RedisTemplate" 
-    p:connection-factory-ref="jedisConnFactory"/>
+	<bean id="myRedis"
+		class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnFactory">
+		<property name="hashValueSerializer">
+	        <bean id="jackson2JsonRedisSerializer" 
+	       		 class="org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer">
+	        				<!-- class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"> -->
+	        		<constructor-arg  type="java.lang.Class" value="org.nikth.data.User" /> 
+	            <!-- <constructor-arg type="java.lang.Class" value="Object.class" />  -->
+	        </bean>   
+    </property>
+    </bean>
+    
+    <bean id="user" class="org.nikth.data.User"></bean>
+    
+<!--     <bean id="StringRedisTemplate" -->
+<!--     class="org.springframework.data.redis.core.StringRedisTemplate"  -->
+<!--     p:connection-factory-ref="jedisConnFactory"/> -->
 
 <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
       <property name="maxTotal" value="200" />
