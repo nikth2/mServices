@@ -64,7 +64,12 @@
         <appender-ref ref="Console" />
     </logger>
     
-    <logger name="log4j.logger.org.springframework.aop.interceptor.PerformanceMonitorInterceptor" level="trace" additivity="false">
+    <logger name="org.springframework.aop.interceptor.PerformanceMonitorInterceptor" level="trace" additivity="false">
+        <appender-ref ref="RollingFileTracer" />
+        <appender-ref ref="Console" />
+    </logger>
+    
+    <logger name="org.springframework.aop.interceptor.AbstractTraceInterceptor" level="trace" additivity="false">
         <appender-ref ref="RollingFileTracer" />
         <appender-ref ref="Console" />
     </logger>
