@@ -68,10 +68,5 @@
         <appender-ref ref="RollingFileTracer" />
         <appender-ref ref="Console" />
     </logger>
-    
-    <logger name="org.springframework.aop.interceptor.AbstractTraceInterceptor" level="trace" additivity="false">
-        <appender-ref ref="RollingFileTracer" />
-        <appender-ref ref="Console" />
-    </logger>
  
 </configuration>

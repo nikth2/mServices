@@ -22,8 +22,9 @@ public class AopConfiguration
 	public void monitor() { }
 
 	@Bean
-	public PerformanceMonitorInterceptor performanceMonitorInterceptor() {
-		return new PerformanceMonitorInterceptor(true);
+	public MyPerformanceMonitorInterceptor performanceMonitorInterceptor() {
+		//return new PerformanceMonitorInterceptor(false);
+		return new MyPerformanceMonitorInterceptor();
 	}
 
 	@Bean
